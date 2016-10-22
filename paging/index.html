@@ -1,0 +1,86 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+	<title> student score </title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<script type="text/javascript" src="../angular/angular.js"></script>
+	<script type="text/javascript" src="app.js"></script>>
+</head>
+
+<body ng-controller="Myctrl">
+	<div class="container">
+<h2 class="text-center"> Table Student </h2>
+
+<div class="row">
+		<div class="col-md-6">
+		<div class ="btn-group" role="group" >
+			<button type="button" 
+			ng-click="changeAction(p)"
+			ng-repeat="p in pagesizes"
+			class="btn btn-default">{{p}}</button>
+			</div>
+		</div>
+
+		<div class="col-md-4 pull-right">
+			<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">
+			<i class="glyphicon glyphicon-search"></i>
+			</span>
+			<input type="text" class="form-control" 
+					ng-model="q"
+			placeholder="Search" aria-describedby="basic-addon1">
+			</div>
+
+		</div>
+</div>
+
+<div class="row">
+<table class="table h5">
+		<tr>
+			<th> <a href="" ng-click="boolname= ordering(boolname, 'name');"> name </th>
+			<th> <a href="" ng-click="ord='class'">class </th>
+			<th> <a href="" ng-click="ord='score'">score </th>
+		</tr>
+		<tr ng-repeat="s in (results=( students | filter:q | orderBy:ord:ordstatus))"
+			ng-if ="$index >= (currentpage*pagesize)
+			 && $index < ((currentpage+1) * pagesize)">
+			<td>{{s.name}}</td>
+			<td>{{s.class}}</td>
+			<td>{{s.score}}</td>
+		</tr>
+		<tr ng-if="results.length==0">
+		<td colspan="3"> Hasil tidak di temukan </td>
+		</tr>
+		</table>
+
+		<div class="row text-center">
+			<ul class="pagination">
+			    <li>
+			      <a href="#" aria-label="Previous" ng-click="paging(1)">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li ng-repeat="i in getNumber(pagenumber) track by $index"
+			    	ng-class="current page == $index ? 'active' : '' ">
+			    <a href="#" ng-click="getPage($index)" >{{$index + 1}}</a>
+			    </li>
+			   
+			   <li>
+			      <a href="#" aria-label="Next" ng-click="paging(1)">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+
+				</div>
+</div>
+
+		<div class="row text-center">
+			<small> Halaman {{currentpage +1}} dari {{pagenumber}} halaman </small>
+
+		</div>
+</br></br></br></br></br>
+	
+</body>
+
+</html>
